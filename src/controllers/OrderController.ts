@@ -15,7 +15,7 @@ type OrderItem = {
 export class OrderController {
   static getAll = catchErrors(async (req: Request, res: Response) => {
     const orders = await Order.findAll({
-      where: req.user.role === "admin" ? {} : { userId: req.user.id },
+      where: req.user?.role === "admin" ? {} : { userId: req.user?.id },
       include: [
         {
           model: OrderItems,
@@ -35,7 +35,7 @@ export class OrderController {
     const { orderDate, items } = req.body;
 
     const order = await Order.create(
-      { purchaseDate: orderDate, userId: req.user.id },
+      { purchaseDate: orderDate, userId: req.user?.id },
       { transaction: t }
     );
 
@@ -75,7 +75,7 @@ export class OrderController {
     const order = await Order.findOne({
       where: {
         id: orderId,
-        ...(req.user.role === "admin" ? {} : { userId: req.user.id }),
+        ...(req.user?.role === "admin" ? {} : { userId: req.user?.id }),
       },
       include: [
         {

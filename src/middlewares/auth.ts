@@ -38,6 +38,7 @@ export const authenticate = async(req: Request, res: Response, next: NextFunctio
         const decoded = jwt.verify(token, JWT_SECRET);
 
         if(typeof decoded === 'object' && decoded.id) {
+            
             const user = await User.findByPk(decoded.id, {
                 attributes: ['id', 'name', 'email', 'role']
             });
