@@ -72,7 +72,7 @@ export const authorize = (roles: string[] = []) => {
       const user = req.user as { id: number; role: string };
 
       if (!user) {
-        return res.status(401).json({ message: "No autorizado" });
+        return res.status(401).json({ message: "Not authorized" });
       }
 
       if (roles.length && !roles.includes(user.role)) {
@@ -89,7 +89,7 @@ export const authorize = (roles: string[] = []) => {
     } catch (error) {
       return res.status(500).json({ 
         success: false,
-        message: "Error en el servidor",
+        message: "Server error",
         data: null,
         error: ""
       });
