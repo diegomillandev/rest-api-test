@@ -5,8 +5,8 @@ import catchErrors from '../utils/catchErrors';
 export class ProductController {
     static getAll = catchErrors(async (req: Request, res: Response) => {
         const products = await Products.findAll({
-                attributes: { exclude: ['updatedAt'] }
-            });
+            attributes: { exclude: ['updatedAt'] }
+        });
         res.json({
             success: true,
             message: "Products retrieved successfully",
@@ -36,7 +36,7 @@ export class ProductController {
     });
     static update = catchErrors(async (req: Request, res: Response) => {
        
-        const product = await req.product.update(req.body);
+        const product = await req.product?.update(req.body);
 
         res.json({
             success: true,
@@ -48,7 +48,7 @@ export class ProductController {
     })
     static delete = catchErrors(async (req: Request, res: Response) => {
     
-        await req.product.destroy();
+        await req.product?.destroy();
 
         res.json({
             success: true,

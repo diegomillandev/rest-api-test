@@ -36,10 +36,22 @@ export const authenticate = async(req: Request, res: Response, next: NextFunctio
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        if(typeof decoded === 'object' && decoded.id){
-            req.user = await User.findByPk(decoded.id, {
+
+        if(typeof decoded === 'object' && decoded.id) {
+            const user = await User.findByPk(decoded.id, {
                 attributes: ['id', 'name', 'email', 'role']
             });
+
+            if(!user) {
+                return res.status(401).json({
+                    success: false,
+                    message: "User not found",
+                    data: null,
+                    error: "User not found"
+                });
+            }
+
+            req.user = user;
             next();
         }
     } catch (error) {

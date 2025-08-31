@@ -2,7 +2,6 @@ import { Sequelize } from 'sequelize-typescript'
 import { DATABASE_URL } from '../constants/env'
 import colors from 'colors';
 
-
 export const db = new Sequelize(DATABASE_URL, {
     models: [__dirname + '/../models/**/*'],
     logging: false,
